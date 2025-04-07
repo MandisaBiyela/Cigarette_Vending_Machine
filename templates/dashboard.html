@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Cigarette Stock Dashboard</h1>
+    <a href="/add">➕ Add Product</a> | 
+    <a href="/transactions">📋 View Transactions</a>
+    <table border="1">
+        <tr>
+            <th>Brand</th>
+            <th>Price (R)</th>
+            <th>Stock</th>
+            <th>Action</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product[1] }}</td>
+            <td>{{ product[2] }}</td>
+            <td>{{ product[3] }}</td>
+            <td><a href="/edit/{{ product[0] }}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Product</title>
+</head>
+<body>
+    <h2>Edit {{ product[1] }}</h2>
+    <form method="POST">
+        Brand Name: <input type="text" name="name" value="{{ product[1] }}" required><br>
+        Price (R): <input type="number" name="price" step="0.01" value="{{ product[2] }}" required><br>
+        Stock: <input type="number" name="stock" value="{{ product[3] }}" required><br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

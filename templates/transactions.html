@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Transactions</title>
+</head>
+<body>
+    <h2>Sales History</h2>
+    <table border="1">
+        <tr>
+            <th>Brand</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Date</th>
+        </tr>
+        {% for sale in sales %}
+        <tr>
+            <td>{{ sale[1] }}</td>
+            <td>{{ sale[2] }}</td>
+            <td>R{{ sale[3] }}</td>
+            <td>{{ sale[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+
