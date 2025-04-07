@@ -73,6 +73,14 @@ def edit_product(id):
     conn.close()
     return render_template('edit_product.html', product=product)
 
+@app.route('/delete/<int:id>')
+def delete_product(id):
+    conn = sqlite3.connect('database.db')
+    conn.execute("DELETE FROM products WHERE id = ?", (id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('dashboard'))
+
 @app.route('/transactions')
 def transactions():
     conn = sqlite3.connect('database.db')
