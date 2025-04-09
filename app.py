@@ -43,7 +43,6 @@ def add_fake_sale():
     conn.commit()
     conn.close()
     return "Fake sale added!"
-
 @app.route('/add', methods=['GET', 'POST'])
 def add_product():
     if request.method == 'POST':
@@ -56,6 +55,7 @@ def add_product():
         conn.commit()
         conn.close()
 
+        flash("Product added successfully!")
         return redirect(url_for('dashboard'))
     return render_template('add_product.html')
 
