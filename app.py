@@ -27,6 +27,8 @@ def init_db():
 
 init_db()
 
+Admin_username = "Admin"
+Admin_password = "password123"
 # --- ROUTES ---
 @app.route('/')
 def dashboard():
@@ -143,6 +145,20 @@ def analytics():
 
     conn.close()
     return render_template('analytics.html', most_bought=most_bought, least_bought=least_bought)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        if(username == Admin_username and password == Admin_password):
+            return redirect(url_for('dashboard'))
+        
+        flash("Incorrct Log in information", "wrong-details")
+        return render_template('login.html')
+    return render_template('login.html')
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
