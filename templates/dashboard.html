@@ -7,53 +7,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='Dashboard.css') }}">
 </head>
 <body>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <h1>Cigarette Stock Dashboard</h1>
-
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul style="color:red;">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
-    <a href="{{ url_for('add_product') }}">➕ Add Product</a> |
-    <a href="{{ url_for('transactions') }}">📋 View Transactions</a> |
-    <a href="{{ url_for('analytics') }}">📊 Weekly Analytics</a>
-
-    <table border="1" cellpadding="5" cellspacing="0">
-        <tr>
-            <th>Brand</th>
-            <th>Price (R)</th>
-            <th>Stock</th>
-            <th>Actions</th>
-            <th>Purchase</th>
-        </tr>
-        {% for product in products %}
-        <tr>
-            <td>{{ product[1] }}</td>
-            <td>{{ product[2] }}</td>
-            <td>{{ product[3] }}</td>
-            <td>
-                <a href="{{ url_for('edit_product', id=product[0]) }}">Edit</a> |
-                <a href="{{ url_for('delete_product', id=product[0]) }}" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
-            </td>
-            <td>
-                <form method="POST" action="{{ url_for('purchase', id=product[0]) }}">
-                    <input type="number" name="quantity" min="1" placeholder="Qty" required>
-                    <button type="submit">Buy</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+<!-- <<<<<<< Updated upstream
 =======
-=======
->>>>>>> Stashed changes
+-->
   <div class="dashboard-container">
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -126,9 +82,9 @@
   </div>
 
   <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
-<<<<<<< Updated upstream
+<!-- <<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
->>>>>>> Stashed changes
+>>>>>>> Stashed changes -->
 </body>
 </html>
