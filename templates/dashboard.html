@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='Dashboard.css') }}">
-
-
-
 </head>
-
 <body>
+<<<<<<< Updated upstream
     <h1>Cigarette Stock Dashboard</h1>
     <a href="/add">➕ Add Product</a> | 
     <a href="/transactions">📋 View Transactions</a>
@@ -32,5 +29,79 @@
         </tr>
         {% endfor %}
     </table>
+=======
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>📦 Stock Admin</h2>
+      <nav>
+        <a href="{{ url_for('add_product') }}">➕ Add Product</a>
+        <a href="{{ url_for('transactions') }}">📋 Transactions</a>
+        <a href="{{ url_for('analytics') }}">📊 Analytics</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="dashboard-header">
+        <h1>Cigarette Stock Dashboard</h1>
+        <div class="header-actions">
+          <button id="toggle-dark">🌓 Toggle Dark Mode</button>
+         </div>
+         <div class="right-user-info">
+          {% if session.user %}
+              <span>Welcome, {{ session.user }}</span>
+              <a href="{{ url_for('logout') }}" class="logout-btn">Sign Out</a>
+          {% endif %}
+      </div>
+      </header>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="flash-messages">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Price (R)</th>
+              <th>Stock</th>
+              <th>Actions</th>
+              <th>Purchase</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in products %}
+              <tr>
+                <td>{{ product[1] }}</td>
+                <td>{{ product[2] }}</td>
+                <td>{{ product[3] }}</td>
+                <td>
+                  <a href="{{ url_for('edit_product', id=product[0]) }}">Edit</a> |
+                  <a href="{{ url_for('delete_product', id=product[0]) }}" onclick="return confirm('Are you sure?');">Delete</a>
+                </td>
+                <td>
+                  <form method="POST" action="{{ url_for('purchase', id=product[0]) }}">
+                    <input type="number" name="quantity" min="1" placeholder="Qty" required>
+                    <button type="submit">Buy</button>
+                  </form>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+>>>>>>> Stashed changes
 </body>
 </html>
