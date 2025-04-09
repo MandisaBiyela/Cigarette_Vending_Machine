@@ -10,8 +10,18 @@
         Price (R): <input type="number" name="price" step="0.01" required><br>
         Stock: <input type="number" name="stock" required><br>
         <button type="submit">Add</button>
-        
-        
     </form>
+
+    <h2>Current Brands</h2>
+    {% for brand in CigaretteBrand.query.all() %}
+        <p>{{ brand.name }} - R{{ brand.price }} - Stock: {{ brand.stock }}</p>
+        <form method="POST" action="{{ url_for('purchase', brand_id=brand.id) }}">
+            <input type="number" name="quantity" placeholder="Qty" required>
+            <button type="submit">Purchase</button>
+        </form>
+    {% endfor %}
+
+    <br>
+    <a href="{{ url_for('analytics') }}">View Weekly Analytics</a>
 </body>
 </html>

@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Needed for flash messages
 
 # --- DATABASE SETUP ---
 def init_db():
@@ -57,6 +59,40 @@ def add_product():
         return redirect(url_for('dashboard'))
     return render_template('add_product.html')
 
+@app.route('/purchase/<int:id>', methods=['POST'])
+def purchase(id):
+    quantity = int(request.form['quantity'])
+    conn = sqlite3.connect('database.db')
+    c = conn.cursor()
+    
+    product = c.execute("SELECT name, stock, price FROM products WHERE id=?", (id,)).fetchone()
+    if not product:
+        flash("Product not found.")
+        return redirect(url_for('dashboard'))
+
+    name, stock, price = product
+
+    if stock < quantity:
+        flash(f"Not enough stock for {name}. Only {stock} left.")
+        return redirect(url_for('dashboard'))
+
+    # Update stock
+    new_stock = stock - quantity
+    c.execute("UPDATE products SET stock=? WHERE id=?", (new_stock, id))
+
+    # Add transaction
+    total_price = price * quantity
+    c.execute("INSERT INTO transactions (product_name, quantity, total_price, date) VALUES (?, ?, ?, ?)",
+              (name, quantity, total_price, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    
+    conn.commit()
+    conn.close()
+
+    if new_stock < 10:
+        flash(f"⚠️ Low stock alert for {name}! Only {new_stock} left.")
+
+    return redirect(url_for('dashboard'))
+
 @app.route('/edit/<int:id>', methods=['GET', 'POST'])
 def edit_product(id):
     conn = sqlite3.connect('database.db')
@@ -87,6 +123,26 @@ def transactions():
     sales = conn.execute("SELECT * FROM transactions").fetchall()
     conn.close()
     return render_template('transactions.html', sales=sales)
+
+@app.route('/analytics')
+def analytics():
+    conn = sqlite3.connect('database.db')
+    one_week_ago = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d %H:%M:%S")
+    
+    cursor = conn.cursor()
+    results = cursor.execute("""
+        SELECT product_name, SUM(quantity) as total
+        FROM transactions
+        WHERE date >= ?
+        GROUP BY product_name
+        ORDER BY total DESC
+    """, (one_week_ago,)).fetchall()
+    
+    most_bought = results[0] if results else None
+    least_bought = results[-1] if results else None
+
+    conn.close()
+    return render_template('analytics.html', most_bought=most_bought, least_bought=least_bought)
 
 if __name__ == '__main__':
     app.run(debug=True)
