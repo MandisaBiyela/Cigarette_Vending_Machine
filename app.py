@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session 
+from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
 from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages
+
+dark_ = False
 
 # --- DATABASE SETUP ---
 def init_db():
@@ -27,6 +29,8 @@ def init_db():
 
 init_db()
 
+Admin_username = "Admin"
+Admin_password = "password123"
 # --- ROUTES ---
 @app.route('/')
 def dashboard():
@@ -125,7 +129,6 @@ def transactions():
     return render_template('transactions.html', sales=sales)
 
 @app.route('/analytics')
-
 def analytics():
     conn = sqlite3.connect('database.db')
     one_week_ago = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d %H:%M:%S")
@@ -151,23 +154,13 @@ def login():
         username = request.form['username']
         password = request.form['password']
         
-        if username == 'admin' and password == 'admin123':
-            session['user'] = username
-            flash('Login successful!', 'success')
+        if(username == Admin_username and password == Admin_password):
             return redirect(url_for('dashboard'))
-        else:
-            flash('Invalid credentials. Try again.', 'error')
-    
+        
+        flash("Incorrct Log in information", "wrong-details")
+        return render_template('login.html')
     return render_template('login.html')
-
-@app.route('/logout')
-def logout():
-    session.pop('user', None)
-    flash('You have been logged out.', 'success')
-    print("User logged out")  
-    return redirect(url_for('login'))
-
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
-

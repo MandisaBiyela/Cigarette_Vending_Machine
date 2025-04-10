@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Product</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='add_product.css') }}">
+{% extends "base.html" %}
 
-    
-</head>
-<body>
+{% block content %}
+
+    <title>Add New Product</title>
+    <link rel="StyleSheet" src="styles.css">
+
     <h2>Add a New Cigarette Brand</h2>
-    <form method="POST">
-        Brand Name: <input type="text" name="name" required><br>
-        Price (R): <input type="number" name="price" step="0.01" required><br>
-        Stock: <input type="number" name="stock" required><br>
-        <button type="submit">Add</button>
+    <form method="POST" class="card-body">
+        
+        Brand Name: <br><input type="text" name="name" required><br>
+        Price (R):<br> <input type="number" name="price" step="0.01" required><br>
+        Stock:<br> <input type="number" name="stock" required><br>
+        <button type="submit" class="btn btn-success">Add</button>
     </form>
 
     <br>
-    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
-</body>
-</html>
+    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+{% endblock %}

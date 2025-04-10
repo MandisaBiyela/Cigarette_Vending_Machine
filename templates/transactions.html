@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Transactions</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='transactions.css') }}">
+{% extends "base.html" %}
 
-</head>
-<body>
+{% block content %}
+    <title>Transactions</title>
+
     <h2>Sales History</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
+    <table border="1" cellpadding="5" cellspacing="0" class="card-body">
         <tr>
             <th>Brand</th>
             <th>Quantity</th>
@@ -27,5 +22,4 @@
     </table>
     <br>
     <a href="/">← Back to Dashboard</a>
-</body>
-</html>
+{% endblock %}
