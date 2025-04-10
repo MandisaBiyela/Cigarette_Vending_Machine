@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard</title>
+{% extends "base.html" %}
+
+{% block content %}
+
+<title>Admin Dashboard</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='Dashboard.css') }}">
-</head>
-<body>
-<!-- <<<<<<< Updated upstream
-=======
--->
+
   <div class="dashboard-container">
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -80,11 +75,4 @@
       </div>
     </main>
   </div>
-
-  <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
-<!-- <<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes -->
-</body>
-</html>
+{% endblock %}

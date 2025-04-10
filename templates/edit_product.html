@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "base.html" %}
+
+{% block content %}
+
     <title>Edit Product</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
+
     <div class="card">
         <h2>Edit {{ product[1] }}</h2>
         <form method="POST" class="card-body">
@@ -16,7 +15,4 @@
         <br>
         <a href="/">← Back to Dashboard</a>
     </div>
-  <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
-
-</body>
-</html>
+ {% endblock %}

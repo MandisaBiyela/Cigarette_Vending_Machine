@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Needed for flash messages
 
+dark_ = False
+
 # --- DATABASE SETUP ---
 def init_db():
     conn = sqlite3.connect('database.db')
