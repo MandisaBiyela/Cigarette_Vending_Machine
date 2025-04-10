@@ -1,0 +1,73 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9; /* Light background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+/* Header Style */
+h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+/* Analytics Content */
+p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* No Purchases Message */
+.no-purchases {
+    font-size: 1.2rem;
+    color: #ff4c4c; /* Red color for emphasis */
+    font-weight: bold;
+}
+
+/* Back Link */
+a {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    a {
+        font-size: 0.9rem;
+    }
+}

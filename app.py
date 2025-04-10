@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session 
 import sqlite3
 from datetime import datetime, timedelta
 
@@ -125,6 +125,7 @@ def transactions():
     return render_template('transactions.html', sales=sales)
 
 @app.route('/analytics')
+
 def analytics():
     conn = sqlite3.connect('database.db')
     one_week_ago = (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d %H:%M:%S")
@@ -144,5 +145,29 @@ def analytics():
     conn.close()
     return render_template('analytics.html', most_bought=most_bought, least_bought=least_bought)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        if username == 'admin' and password == 'admin123':
+            session['user'] = username
+            flash('Login successful!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Invalid credentials. Try again.', 'error')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash('You have been logged out.', 'success')
+    print("User logged out")  
+    return redirect(url_for('login'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
